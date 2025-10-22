@@ -7,18 +7,20 @@ package br.ulbra.view;
 
 import br.ulbra.dao.UsuarioDAO;
 import br.ulbra.model.Usuario;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import org.mindrot.jbcrypt.BCrypt;
 import javax.swing.JOptionPane;
 
 public class CadastroUsu extends javax.swing.JFrame {
 
+private boolean senhaVisivel = false; // senha inicialmente escondida
     /**
      * Creates new form CadastroUsu
      */
     public CadastroUsu() {
-        initComponents();
+     
+         initComponents();
+          txtSenha.setEchoChar('•'); // senha começa escondida
+    btnMostrarSenha.setText("👁️"); // texto inicial do botão
     }
 
     /**
@@ -41,11 +43,12 @@ public class CadastroUsu extends javax.swing.JFrame {
         txtPeso = new javax.swing.JTextField();
         txtAltura = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtSenha = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        btnMostrarSenha = new javax.swing.JButton();
+        txtSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,8 +105,6 @@ public class CadastroUsu extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         jLabel5.setText("SENHA:");
 
-        txtSenha.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-
         jLabel7.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         jLabel7.setText("CRIE UMA SENHA DE CADASTRO:");
 
@@ -113,7 +114,7 @@ public class CadastroUsu extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("CADASTRO DE USUÁRIO");
 
-        jLabel9.setIcon(new javax.swing.ImageIcon("C:\\Users\\gabri\\Downloads\\LogoFitTrackBranco2.png")); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon("C:\\Users\\gabri\\Documents\\NetBeansProjects\\FitTrack\\src\\br.ulbra.img\\LogoFitTrackBranco2.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -139,6 +140,13 @@ public class CadastroUsu extends javax.swing.JFrame {
                         .addGap(34, 34, 34))))
         );
 
+        btnMostrarSenha.setText("MOSTRAR");
+        btnMostrarSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarSenhaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -150,29 +158,32 @@ public class CadastroUsu extends javax.swing.JFrame {
                         .addComponent(btnSalvar)
                         .addGap(41, 41, 41)
                         .addComponent(btnLimpar))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel7)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel1))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(20, 20, 20)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtPeso)
-                                        .addComponent(txtIdade)
-                                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(18, 18, 18)
-                                    .addComponent(txtAltura))))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel7)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel1))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(20, 20, 20)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtPeso)
+                                            .addComponent(txtIdade)
+                                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtAltura))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(28, 28, 28)
+                                .addComponent(txtSenha)))
+                        .addGap(28, 28, 28)
+                        .addComponent(btnMostrarSenha)))
+                .addGap(76, 80, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -200,8 +211,9 @@ public class CadastroUsu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
+                    .addComponent(btnMostrarSenha)
                     .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(85, 85, 85)
+                .addGap(84, 84, 84)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnLimpar))
@@ -213,42 +225,34 @@ public class CadastroUsu extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         try {
-        Usuario u = new Usuario();
-        u.setNome(txtNome.getText().trim());
-        u.setSenha(txtSenha.getText().trim());
+            String nome = txtNome.getText().trim();
+            String senha = new String(txtSenha.getPassword());
 
-        // Verificações
-        if (txtIdade.getText().isEmpty() || txtPeso.getText().isEmpty() || txtAltura.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Preencha idade, peso e altura com valores numéricos!");
-            return;
+            if (nome.isEmpty() || senha.isEmpty() || txtIdade.getText().isEmpty()
+                    || txtPeso.getText().isEmpty() || txtAltura.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Preencha todos os campos!");
+                return;
+            }
+
+            Usuario u = new Usuario();
+            u.setNome(nome);
+            u.setSenha(BCrypt.hashpw(senha, BCrypt.gensalt())); // hash aqui
+            u.setIdade(Integer.parseInt(txtIdade.getText()));
+            u.setPeso(Double.parseDouble(txtPeso.getText()));
+            u.setAltura(Double.parseDouble(txtAltura.getText()));
+
+            new UsuarioDAO().salvar(u);
+
+            JOptionPane.showMessageDialog(this, "Usuário salvo com sucesso!");
+            new TelaInicial(u).setVisible(true);
+            this.dispose();
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Idade, peso e altura devem ser números válidos!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao salvar usuário: " + e.getMessage());
+            e.printStackTrace();
         }
-
-        u.setIdade(Integer.parseInt(txtIdade.getText()));
-        u.setPeso(Double.parseDouble(txtPeso.getText()));
-        u.setAltura(Double.parseDouble(txtAltura.getText()));
-
-        UsuarioDAO dao = new UsuarioDAO();
-        dao.salvar(u); // salva e já seta o ID no objeto 'u'
-
-        // Abre ListagemView passando o usuário completo
-        new TelaInicial(u).setVisible(true);
-        this.dispose(); // fecha a tela de cadastro
-
-        JOptionPane.showMessageDialog(null, "Usuário salvo com sucesso!");
-
-        // limpa campos (opcional, já que fechamos a tela)
-        txtNome.setText("");
-        txtIdade.setText("");
-        txtPeso.setText("");
-        txtAltura.setText("");
-        txtSenha.setText("");
-
-    } catch (NumberFormatException ex) {
-        JOptionPane.showMessageDialog(this, "Idade, peso e altura devem ser números válidos!");
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Erro ao salvar usuário: " + e.getMessage());
-        e.printStackTrace();
-    }
 
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -268,6 +272,18 @@ public class CadastroUsu extends javax.swing.JFrame {
     private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeActionPerformed
+
+    private void btnMostrarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarSenhaActionPerformed
+             if (senhaVisivel) {
+        txtSenha.setEchoChar('•'); // volta a esconder
+        btnMostrarSenha.setText("👁️");
+        senhaVisivel = false;
+    } else {
+        txtSenha.setEchoChar((char) 0); // mostra a senha
+        btnMostrarSenha.setText("🚫");
+        senhaVisivel = true;
+    }
+    }//GEN-LAST:event_btnMostrarSenhaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -306,6 +322,7 @@ public class CadastroUsu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLimpar;
+    private javax.swing.JButton btnMostrarSenha;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -320,6 +337,6 @@ public class CadastroUsu extends javax.swing.JFrame {
     private javax.swing.JTextField txtIdade;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtPeso;
-    private javax.swing.JTextField txtSenha;
+    private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
 }

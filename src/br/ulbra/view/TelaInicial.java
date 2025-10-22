@@ -47,7 +47,6 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         mnCadastros = new javax.swing.JMenu();
         mnTreino = new javax.swing.JMenuItem();
-        mnUsuario = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         mnPerfil = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -72,7 +71,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\gabri\\Downloads\\logoFitTrack.png")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\gabri\\Documents\\NetBeansProjects\\FitTrack\\src\\br.ulbra.img\\logoFitTrack.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -101,14 +100,6 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
         mnCadastros.add(mnTreino);
-
-        mnUsuario.setText("Usuario");
-        mnUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnUsuarioActionPerformed(evt);
-            }
-        });
-        mnCadastros.add(mnUsuario);
 
         jMenuBar1.add(mnCadastros);
 
@@ -175,10 +166,6 @@ public class TelaInicial extends javax.swing.JFrame {
     perfil.setVisible(true);
     }//GEN-LAST:event_mnPerfilActionPerformed
 
-    private void mnUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnUsuarioActionPerformed
-         new CadastroUsu().setVisible(true);
-    }//GEN-LAST:event_mnUsuarioActionPerformed
-
     private void mnSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSobreActionPerformed
          JOptionPane.showMessageDialog(this,
                 "FitTrack - Sistema de Gerenciamento de Treinos\n"
@@ -223,6 +210,5 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnPerfil;
     private javax.swing.JMenuItem mnSobre;
     private javax.swing.JMenuItem mnTreino;
-    private javax.swing.JMenuItem mnUsuario;
     // End of variables declaration//GEN-END:variables
 }

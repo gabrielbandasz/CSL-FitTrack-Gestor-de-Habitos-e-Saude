@@ -41,4 +41,5 @@ public class TreinoController {
         }
         dao.remover(id);
     }
+     
 }

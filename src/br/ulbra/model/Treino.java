@@ -1,20 +1,20 @@
 package br.ulbra.model;
 
 
-
+//principal
 public class Treino {
 
     private int idTreino;
     private String tipo;
     private int duracao;
-    private int calorias;
+    private double calorias;
     private String dataTreino;
     private int idUsuario;
 
     public Treino() {
     }
 
-    public Treino(int idTreino, String tipo, int duracao, int calorias, String dataTreino, int idUsuario) {
+    public Treino(int idTreino, String tipo, int duracao, double calorias, String dataTreino, int idUsuario) {
         this.idTreino = idTreino;
         this.tipo = tipo;
         this.duracao = duracao;
@@ -47,11 +47,11 @@ public class Treino {
         this.duracao = duracao;
     }
 
-    public int getCalorias() {
+    public double getCalorias() {
         return calorias;
     }
 
-    public void setCalorias(int calorias) {
+    public void setCalorias(double calorias) {
         this.calorias = calorias;
     }
 

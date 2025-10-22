@@ -1,6 +1,6 @@
 package br.ulbra.dao;
 
-
+//principal
 import br.ulbra.model.Treino;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +12,9 @@ import java.util.List;
 
 public class TreinoDAO {
 
+    
+    
+    
     // --- MÉTODO PARA INSERIR UM TREINO ---
     public void salvar(Treino t) throws SQLException {
         String sql = "INSERT INTO treino (tipo, duracao, calorias, data_treino, id_usuario) VALUES (?, ?, ?, ?, ?)";
@@ -20,7 +23,7 @@ public class TreinoDAO {
 
             ps.setString(1, t.getTipo());
             ps.setInt(2, t.getDuracao());
-            ps.setInt(3, t.getCalorias());
+            ps.setDouble(3, t.getCalorias());
             ps.setString(4, t.getDataTreino());
             ps.setInt(5, t.getIdUsuario());
 
@@ -53,7 +56,7 @@ public List<Treino> listar() throws SQLException {
                 rs.getInt("id_treino"),
                 rs.getString("tipo"),
                 rs.getInt("duracao"),
-                rs.getInt("calorias"),
+                rs.getDouble("calorias"),
                 rs.getString("data_treino"),
                 rs.getInt("id_usuario")
             );
@@ -79,7 +82,7 @@ public List<Treino> listarPorUsuario(int idUsuario) throws SQLException {
                     rs.getInt("id_treino"),
                     rs.getString("tipo"),
                     rs.getInt("duracao"),
-                    rs.getInt("calorias"),
+                    rs.getDouble("calorias"),
                     rs.getString("data_treino"),
                     rs.getInt("id_usuario")
                 );
@@ -98,7 +101,7 @@ public List<Treino> listarPorUsuario(int idUsuario) throws SQLException {
 
             ps.setString(1, t.getTipo());
             ps.setInt(2, t.getDuracao());
-            ps.setInt(3, t.getCalorias());
+            ps.setDouble(3, t.getCalorias());
             ps.setString(4, t.getDataTreino());
             ps.setInt(5, t.getIdUsuario());
             ps.setInt(6, t.getIdTreino());
@@ -127,7 +130,7 @@ public List<Treino> listarPorUsuario(int idUsuario) throws SQLException {
                         rs.getInt("id_treino"),
                         rs.getString("tipo"),
                         rs.getInt("duracao"),
-                        rs.getInt("calorias"),
+                        rs.getDouble("calorias"),
                         rs.getString("data_treino"),
                         rs.getInt("id_usuario")
                     );
