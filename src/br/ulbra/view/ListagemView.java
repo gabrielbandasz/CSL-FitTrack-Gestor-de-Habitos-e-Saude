@@ -321,8 +321,9 @@ private void listarTreinosUsuario() {
 
     private void btnImcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImcActionPerformed
           try {
-            double peso = Double.parseDouble(txtPeso.getText());
-            double altura = Double.parseDouble(txtAltura.getText());
+        // ALTERAÇÃO PARA VIRGULA: aceita 1,75 ou 1.75
+        double peso = Double.parseDouble(txtPeso.getText().replace(',', '.'));
+        double altura = Double.parseDouble(txtAltura.getText().replace(',', '.'));
 
             if (altura <= 0) {
                 txtImc.setText("Altura inválida");
@@ -382,12 +383,13 @@ private void listarTreinosUsuario() {
             txtAltura.setEditable(true);
             btnEditar.setText("Salvar");
         } else {
+        
             try {
                 usuarioLogado.setNome(txtNome.getText());
                 usuarioLogado.setIdade(Integer.parseInt(txtIdade.getText()));
-                usuarioLogado.setPeso(Double.parseDouble(txtPeso.getText()));
-                usuarioLogado.setAltura(Double.parseDouble(txtAltura.getText()));
-
+ // ALTERAÇÃO PARA VIRGULA: aceita 1,75 ou 1.75
+            usuarioLogado.setPeso(Double.parseDouble(txtPeso.getText().replace(',', '.')));       
+            usuarioLogado.setAltura(Double.parseDouble(txtAltura.getText().replace(',', '.')));   
                 UsuarioDAO dao = new UsuarioDAO();
                 dao.atualizar(usuarioLogado); // atualiza corretamente pelo ID
 
